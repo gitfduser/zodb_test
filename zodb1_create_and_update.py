@@ -1,8 +1,10 @@
 # %%
 import transaction
-from utils import get_db_connection, Employee
+from utils import get_db_connection, Employee, zap_employees
 
+#%%
 
+zap_employees()
 # %%
 # say hello to John and Jim
 john = Employee(name="John")
@@ -22,10 +24,16 @@ john.relation.append(jim)
 john.relation_type.append("friend")
 
 #%%
+transaction.commit()
+#%%
+
+#%%
 jim.relation.append(john)
 jim.relation_type.append("friend")
 
 #%%
+transaction.commit()
+
 #%%
 # print humans' relations
 print(f"John has {john.relation[0].name} as {john.relation_type[0]}")
@@ -37,17 +45,18 @@ jane = Employee(name="Jane")
 # jim and jane got married
 jane.relation.append(jim)
 jane.relation_type.append("spouse")
+#%%
+root.employees.append(jane)
+#%%
+#transaction.commit()
+
+#%%
 jim.relation.append(jane)
 jim.relation_type.append("spouse")
 
 #%%
-# add jane to humans in the database
-root.employees.append(jane)
-
-#%%
-# store data in the database
 transaction.commit()
-# %%
+
 # close database connection
 connection.close()
 

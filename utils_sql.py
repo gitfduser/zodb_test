@@ -2,7 +2,7 @@ import ZODB.config
 import persistent
 from ast import List, Tuple
 import relstorage
-
+import transaction
 
 zodb_config = """
 %import relstorage
@@ -22,18 +22,20 @@ def get_db_connection()->Tuple:
     root = connection.root
     return connection,root
 
-
-
-class Being(persistent.Persistent):
-    pass
-
-class Employee(Being):
+class Employee(persistent.Persistent):
     def __init__(self, name):
         self.name = name
         self.relation = []
         self.relation_type = []
 
+def find_employee(name: str, employees) -> Employee:
+    return [item for item in employees if item.name == name][0]
 
+def zap_employees():
+    connection, root = get_db_connection()
+    root.employees=[]
+    transaction.commit()
+    connection.close()
 
 
 
