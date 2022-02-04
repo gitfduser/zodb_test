@@ -52,7 +52,6 @@ root.employees = employees
 transaction.commit()
 connection.close()
 #%%
-#%%
 # let's open the database
 # get a db connection
 connection, root = get_db_connection()

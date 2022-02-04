@@ -13,19 +13,22 @@ employees = root.employees
 
 jim = find_employee("Jim", employees)
 #%%
+# display jim's relations
+jim.display_relations()
+#%%
 john = find_employee("John", employees)
 #%%
+# display john's relations
+#%%
+john.display_relations()
+#%%
 jane = find_employee("Jane", employees)
-jane
 #%%
-for employee in employees:
-    print(
-        f"{employee.name}'s relation, {employee.relation[0].name} as  {employee.relation_type[0]}"
-    )
+# display jane's relations
 #%%
-print(f"Jim has {jim.relation[1].name} as {jim.relation_type[1]}")
-# %%
-# close database connection
+jane.display_relations()
+#%%
+
 connection.close()
 
 # %%

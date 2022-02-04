@@ -54,4 +54,5 @@ def zap_employees():
     root.employees = []
     transaction.commit()
     connection.close()
+    print("Employees are deleted")
 
