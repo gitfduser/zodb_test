@@ -47,6 +47,7 @@ employees.append(jane)
 root.employees = employees
 #%%
 transaction.commit()
+connection.close()
 #%%
 #%%
 # get a db connection
@@ -60,11 +61,14 @@ jane = find_employee("Jane", employees)
 # jim and jane got married
 jane.relation.append(jim)
 jane.relation_type.append("spouse")
+jane._p_changed = 1
 #%%
 transaction.commit()
+
 #%%
 jim.relation.append(jane)
 jim.relation_type.append("spouse")
+jim._p_changed = 1
 #%%
 print(f"Jane has {jane.relation[0].name} as {jane.relation_type[0]}")
 #%%
