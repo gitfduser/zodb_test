@@ -1,14 +1,17 @@
 # %%
 import transaction
-from utils_sql import get_db_connection, Employee, zap_employees, find_employee
+from utils_lite import get_db_connection, Employee, zap_employees, find_employee
 
 #%%
+# open the database and delete all employees in the database if any
 zap_employees()
 # %%
 # say hello to John and Jim
 john = Employee(name="John")
+john.say_hi()
+#%%
 jim = Employee(name="Jim")
-
+jim.say_hi()
 #%%
 # get a db connection
 connection, root = get_db_connection()
@@ -19,17 +22,16 @@ employees = [john, jim]
 
 #%%
 # can we establish a relation between jim and john?
-john.relation.append(jim)
-john.relation_type.append("friend")
+john.add_relation(jim, "friend")
 
 #%%
-jim.relation.append(john)
+jim.add_relation(john, "friend")
 
-jim.relation_type.append("friend")
+# jim and john are now friends
 #%%
 # print employees relations
-print(f"John has {john.relation[0].name} as {john.relation_type[0]}")
-print(f"Jim has {jim.relation[0].name} as {jim.relation_type[0]}")
+john.display_relations()
+jim.display_relations()
 #%%
 root.employees = employees
 #%%
@@ -39,38 +41,43 @@ transaction.commit()
 #%%
 # Say hello to jane
 jane = Employee(name="Jane")
-jane
+jane.say_hi()
 #%%
-# add jane to humans in the database
+# add jane to employees in the database
 employees.append(jane)
 #%%
 root.employees = employees
 #%%
+# commit changes in transaction and close database
 transaction.commit()
 connection.close()
 #%%
 #%%
+# let's open the database
 # get a db connection
 connection, root = get_db_connection()
 #%%
 employees = root.employees
 #%%
+# retrieve jim and john employees
 jim = find_employee("Jim", employees)
 jane = find_employee("Jane", employees)
 #%%
-# jim and jane got married
-jane.relation.append(jim)
-jane.relation_type.append("spouse")
-jane._p_changed = 1
+# jim and jane get married
+jane.add_relation(jim, "spouse")
+# display jane's relations
+jane.display_relations()
 #%%
+# commit changes to the database
 transaction.commit()
 
 #%%
-jim.relation.append(jane)
-jim.relation_type.append("spouse")
-jim._p_changed = 1
+jim.add_relation(jane, "spouse")
 #%%
-print(f"Jane has {jane.relation[0].name} as {jane.relation_type[0]}")
+# display jim's relations
+jim.display_relations()
+#%%
+
 #%%
 # store data in the database
 transaction.commit()
