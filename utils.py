@@ -8,7 +8,7 @@ from connection_strings import zodb_config_psql, zodb_config_sqlite
 
 def get_db_connection() -> Tuple:
     ## database based storage
-    db = ZODB.config.databaseFromString(zodb_config_psql)
+    db = ZODB.config.databaseFromString(zodb_config_psql) ## for SQLite3 replace with zodb_config_sqlite
     ## file based storage
     # storage = ZODB.FileStorage.FileStorage("Data/mydata.fs")
     # db = ZODB.DB(storage)
