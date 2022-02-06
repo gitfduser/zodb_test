@@ -1,6 +1,6 @@
 # %%
 import transaction
-from utils_sql import get_db_connection, Employee, zap_employees, find_employee
+from utils import get_db_connection, Employee, zap_employees, find_employee
 
 #%%
 # open the database and delete all employees in the database if any
