@@ -1,3 +1,5 @@
 /__pycache__
 /.vscode
 /venv
+Data/sqlite/main.sqlite3
+Data/sqlite/main.sqlite3

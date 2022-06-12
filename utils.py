@@ -1,4 +1,5 @@
 import ZODB.config
+import ZODB, ZODB.FileStorage
 import persistent
 from ast import List, Tuple
 import relstorage
@@ -7,11 +8,10 @@ from connection_strings import zodb_config_psql, zodb_config_sqlite
 
 
 def get_db_connection() -> Tuple:
-    ## database based storage
-    db = ZODB.config.databaseFromString(zodb_config_psql) ## for SQLite3 replace with zodb_config_sqlite
-    ## file based storage
-    # storage = ZODB.FileStorage.FileStorage("Data/mydata.fs")
-    # db = ZODB.DB(storage)
+    ## database based storage with PostgreSQL connection string
+    #db = ZODB.config.databaseFromString(zodb_config_psql) or 
+    ## SQLite3 based storage with connection string
+    db = ZODB.config.databaseFromString(zodb_config_sqlite)
     connection = db.open()
     root = connection.root
     return connection, root

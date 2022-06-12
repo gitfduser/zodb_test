@@ -57,7 +57,7 @@ connection.close()
 connection, root = get_db_connection()
 #%%
 employees = root.employees
-#%%
+
 # retrieve jim and john employees
 jim = find_employee("Jim", employees)
 jane = find_employee("Jane", employees)
@@ -84,4 +84,3 @@ transaction.commit()
 # close database connection
 connection.close()
 #%%
-
